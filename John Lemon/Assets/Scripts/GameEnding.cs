@@ -31,6 +31,7 @@ public class GameEnding : MonoBehaviour
     bool m_IsPlayerCaught;
     float m_Timer;
     bool m_HasAudioPlayed;
+    public bool pickedupitem = false;
 
     private void Start()
     {
@@ -43,8 +44,11 @@ public class GameEnding : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            m_IsPlayerAtExit = true;
-            time.Stop = true;
+            if (pickedupitem == true)
+            {
+                m_IsPlayerAtExit = true;
+                time.Stop = true;
+            }
         }
     }
 
@@ -114,7 +118,7 @@ public class GameEnding : MonoBehaviour
                 {
                     TwoStar.SetActive(true);
                 }
-                if (time.currentTime >= 5)
+                if (time.currentTime >= 50)
                 {
                     ThreeStar.SetActive(true);
                 }
