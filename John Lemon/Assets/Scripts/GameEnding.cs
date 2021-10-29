@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameEnding : MonoBehaviour
 {
     public float fadeDuration = 1f;
     public float displayImageDuration = 1f;
+    public float remainder;
     public GameObject player;
     public CanvasGroup exitBackgroundImageCanvasGroup;
     public AudioSource exitAudio;
@@ -14,16 +16,35 @@ public class GameEnding : MonoBehaviour
     public AudioSource caughtAudio;
     public LevelTimer time;
 
+    public float EndingTimer;
+    public GameObject exitBackground;
+    public GameObject winBackground;
+    public GameObject Timer;
+
+    public GameObject OneStar;
+    public GameObject TwoStar;
+    public GameObject ThreeStar;
+    public GameObject NoStar;
+    public TextMeshProUGUI secondsText;
+
     bool m_IsPlayerAtExit;
     bool m_IsPlayerCaught;
     float m_Timer;
     bool m_HasAudioPlayed;
 
+    private void Start()
+    {
+        OneStar.SetActive(false);
+        TwoStar.SetActive(false);
+        ThreeStar.SetActive(false);
+        NoStar.SetActive(false);
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
         {
             m_IsPlayerAtExit = true;
+            time.Stop = true;
         }
     }
 
@@ -41,6 +62,12 @@ public class GameEnding : MonoBehaviour
         else if (m_IsPlayerCaught)
         {
             EndLevel(caughtBackgroundImageCanvasGroup, true, caughtAudio);
+            EndingTimer -= 1 * Time.deltaTime;
+            if (EndingTimer <= 0)
+            {
+                SceneManager.LoadScene(0);
+                Debug.Log("Restart");
+            }
         }
         if (time.currentTime <= 0)
         {
@@ -61,13 +88,43 @@ public class GameEnding : MonoBehaviour
 
         if (m_Timer > fadeDuration + displayImageDuration)
         {
-            if (doRestart)
+           if (m_IsPlayerCaught == true)
             {
-                SceneManager.LoadScene(0);
+                NoStar.SetActive(true);
+                exitBackground.SetActive(false);
+                Timer.SetActive(false);
             }
-            else
+           if (m_IsPlayerCaught == false & m_IsPlayerAtExit == true)
             {
-                Application.Quit();
+                winBackground.SetActive(false);
+                Timer.SetActive(false);
+
+                remainder = time.startingTime - time.currentTime;
+                secondsText.text = "You beat the level in " + remainder.ToString("0") + " seconds";
+
+                if (time.currentTime <= 25)
+                {
+                    NoStar.SetActive(true);
+                }
+                if (time.currentTime <= 35)
+                {
+                    OneStar.SetActive(true);
+                }
+                if (time.currentTime <= 40)
+                {
+                    TwoStar.SetActive(true);
+                }
+                if (time.currentTime >= 5)
+                {
+                    ThreeStar.SetActive(true);
+                }
+
+                EndingTimer -= 1 * Time.deltaTime;
+                if (EndingTimer <= 0)
+                {
+                    SceneManager.LoadScene(0);
+                    Debug.Log("Restart");
+                }
             }
         }
     }

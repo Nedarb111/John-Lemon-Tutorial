@@ -13,6 +13,7 @@ public class LevelTimer : MonoBehaviour
     public TextMeshProUGUI timerText;
     public bool Stop;
 
+
     //setting currentTime = startingTime
     void Start()
     {
@@ -33,6 +34,7 @@ public class LevelTimer : MonoBehaviour
             if (currentTime <= 0)
             {
                 currentTime = 0;
+                Stop = true;
                 //UnityEditor.EditorApplication.isPlaying = false;
             }
         }
