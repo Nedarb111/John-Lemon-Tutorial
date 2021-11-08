@@ -8,7 +8,11 @@ public class ProjectileCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+             Destroy(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("Level"))
+        {
+            Destroy(this.gameObject);
         }
     }
 }
