@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - GameItem
+  - Level
   layers:
   - Default
   - TransparentFX

@@ -7,11 +7,12 @@ public class PowerUps : MonoBehaviour
     public GameEnding item;
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.CompareTag("Player");
+       if (other.gameObject.CompareTag("Player"))
         {
             this.gameObject.SetActive(false);
             Debug.Log("Detected Player");
-            item.pickedupitem = true;
+            item.keys += 1;
+            Debug.Log(item.keys);
         }
     }
 }

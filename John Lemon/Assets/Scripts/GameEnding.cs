@@ -33,6 +33,8 @@ public class GameEnding : MonoBehaviour
     bool m_HasAudioPlayed;
     public bool pickedupitem = false;
 
+    public int keys = 0;
+
     private void Start()
     {
         OneStar.SetActive(false);
@@ -44,7 +46,8 @@ public class GameEnding : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            if (pickedupitem == true)
+            Debug.Log(keys); 
+            if (keys == 3)
             {
                 m_IsPlayerAtExit = true;
                 time.Stop = true;
@@ -61,7 +64,7 @@ public class GameEnding : MonoBehaviour
     {
         if (m_IsPlayerAtExit)
         {
-            EndLevel(exitBackgroundImageCanvasGroup, false, exitAudio);
+                EndLevel(exitBackgroundImageCanvasGroup, false, exitAudio);
         }
         else if (m_IsPlayerCaught)
         {
