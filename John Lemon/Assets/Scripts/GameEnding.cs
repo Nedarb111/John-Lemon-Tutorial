@@ -113,15 +113,15 @@ public class GameEnding : MonoBehaviour
                 {
                     NoStar.SetActive(true);
                 }
-                if (time.currentTime <= 35)
+                if (time.currentTime <= 40)
                 {
                     OneStar.SetActive(true);
                 }
-                if (time.currentTime <= 40)
+                if (time.currentTime <= 60)
                 {
                     TwoStar.SetActive(true);
                 }
-                if (time.currentTime >= 50)
+                if (time.currentTime >= 70)
                 {
                     ThreeStar.SetActive(true);
                 }
